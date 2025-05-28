@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Detección de Accidentes</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+  <script defer src="js/app.js"></script>
+  <style>
+body {
+      margin: 0;
+      background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                  url('images/choques2.jpg') no-repeat center center fixed;
+      background-size: cover;
+      font-family: Arial, sans-serif;
+      padding-top: 60px;
+    }
+h1 {
+  font-size: 2.4em;
+  font-weight: bold;
+  text-align: center;
+  background: linear-gradient(270deg, #d32f2f, #1976d2);
+  background-size: 400% 400%;
+  animation: luzSirena 4s ease infinite;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@keyframes luzSirena {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+
+
+  .container {
+  background-color: #222;
+  padding: 35px;
+  max-width: 580px;
+  margin: 50px auto;
+  border-radius: 20px;
+  color: #eee;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+  border-left: 6px solid red;
+  border-right: 6px solid blue;
+}
+
+.menu-principal {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.menu-principal button { 
+  background-color: #1f1f1f;
+  color: #ffffff;
+  border: 1px solid #444;
+  padding: 12px 18px;
+  border-radius: 6px;
+  margin: 10px;
+  font-weight: 600;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.menu-principal button:hover {
+  background-color: #292929;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(255,255,255,0.1);
+}
+
+
+    .seccion select {
+      margin: 5px;
+      padding: 5px;
+    }
+
+    .seccion {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+<div id="barraSuperior" class="barra-superior">
+  <img src="images/logo_mexico.png" class="izquierda" />
+  <img src="images/barra_cdmx.png" class="derecha" />
+</div>
+
+  <div class="container">
+    <h1>Sistema de Detección de Accidentes</h1>
+
+    <!-- Menú principal -->
+    <div class="menu-principal">
+      <button onclick="mostrarImagen()">Imagen</button>
+      <button onclick="mostrarVideo()">Video</button>
+      <button onclick="mostrarCamara()">Cámara</button>
+    </div>
+
+    <!-- Sección Imagen -->
+    <div id="seccionImagen" class="seccion" style="display: none;">
+      <input type="file" id="inputImagen" accept="image/*" onchange="cargarImagen(event)">
+      <img id="imagenVista" width="300" style="display: none;" />
+      <button id="btnPredecirImagen" style="display: none;" onclick="predecirImagen()">Predecir</button>
+      <p id="resultadoImagen"></p>
+      <button onclick="volverAlMenu()">Atrás</button>
+    </div>
+
+    <!-- Sección Video -->
+    <div id="seccionVideo" class="seccion" style="display: none;">
+      <input type="file" id="inputVideo" accept="video/*" onchange="mostrarBotonVideo()">
+      <video id="videoVista" width="300" controls style="display: none;"></video>
+      <button id="btnPredecirVideo" style="display: none;" onclick="predecirVideo()">Predecir</button>
+      <p id="resultadoVideo"></p>
+      <button onclick="volverAlMenu()">Atrás</button>
+    </div>
+
+    <!-- Sección Cámara -->
+<div id="seccionCamara" class="seccion" style="display: none;">
+  <div style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 10px;">
+    <select id="estado" onchange="actualizarMunicipios()">
+      <option value="0">Selecciona Estado</option>
+      <option value="cdmx">CDMX</option>
+    </select>
+
+    <select id="municipio" onchange="actualizarColonias()">
+      <option value="0">Selecciona Municipio</option>
+    </select>
+
+    <select id="colonia" onchange="validarUbicacion()">
+      <option value="0">Selecciona Colonia</option>
+    </select>
+  </div>
+
+  <div style="display: flex; justify-content: center; gap: 10px; margin-bottom: 10px;">
+    <button id="btnActivarCamara" onclick="activarCamara()" disabled>Activar Cámara</button>
+    <button onclick="apagarCamara()">Apagar Cámara</button>
+  </div>
+
+  <div style="text-align: center;">
+    <button id="btnAnalizarCamara" style="display: none;" onclick="analizarCamara()">Predecir con Cámara</button>
+  </div>
+
+  <video id="camaraVista" width="300" autoplay style="display: none; margin-top: 10px;"></video>
+  <p id="resultadoCamara"></p>
+
+  <button onclick="volverAlMenu()">Atrás</button>
+</div>
