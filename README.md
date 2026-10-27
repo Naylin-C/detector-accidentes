@@ -1,54 +1,59 @@
-# Accident Detection System | Sistema de Detección de Accidentes
+# Traffic Accident Detection | Detección de Accidentes
 
-> **Status / Estado:** Historical academic prototype under recovery and technical review. **Not yet validated as a working release.**  
-> Prototipo académico histórico en recuperación y revisión técnica. **Su funcionamiento aún no ha sido validado.**
+**Computer Vision · Deep Learning · TensorFlow.js · JavaScript**
 
-## Overview / Descripción
+## About the project
 
-Academic computer-vision project intended to classify traffic-accident scenes through a browser interface. The recovered code contains interfaces for image uploads, video uploads and camera input, with inference implemented using TensorFlow.js.
+An academic computer-vision prototype designed to explore automated classification of traffic scenes into **accident** and **no accident** categories. The project combines a TensorFlow/Keras model exported to TensorFlow.js with a browser-based interface.
 
-Proyecto académico de visión por computadora orientado a clasificar escenas de accidentes de tránsito mediante una interfaz web. El código recuperado incluye opciones para imágenes, videos y cámara, con inferencia mediante TensorFlow.js.
+The recovered implementation includes three input modes:
+- **Image:** upload a photograph for classification.
+- **Video:** analyze frames from an uploaded video.
+- **Camera:** capture a frame from a connected camera for classification.
 
-## Technologies / Tecnologías
+The interface displays the predicted class, the model's output score, and inference timing for some modes. It also includes a location-selection interface for Mexico City; this is a UI feature, **not** verified geolocation or emergency-service integration.
 
-- HTML, CSS, JavaScript
-- TensorFlow.js
-- TensorFlow / Keras (exported model metadata)
+## Technologies
 
-## Recovered structure / Estructura recuperada
+| Area | Tools |
+| --- | --- |
+| Machine learning | TensorFlow / Keras, TensorFlow.js |
+| Frontend | HTML, CSS, JavaScript |
+| Model integration | Browser-based image processing and inference |
+| Inputs | Image upload, video upload, camera |
 
-- `AccidentesC5/index.html`: browser interface / interfaz web
-- `AccidentesC5/css/styles.css`: styles / estilos
-- `AccidentesC5/js/app.js`: application and inference logic / lógica de aplicación e inferencia
-- `AccidentesC5/models/modelo_web/`: model manifest and weight shards / manifiesto y pesos del modelo
-- `AccidentesC5/images/`: UI assets / recursos visuales
+## Repository structure
 
-## Technical review / Revisión técnica
+```text
+AccidentesC5/
+├── index.html              # Web interface
+├── css/styles.css          # Styling
+├── js/app.js               # Input handling and inference
+├── images/                 # Interface assets
+└── models/modelo_web/      # TensorFlow.js model and weights
+```
 
-The following issues were identified by static code inspection; runtime behavior has **not** been tested:
+## What this project demonstrates
 
-1. **Model path (code fix applied, runtime unverified):** `app.js` now uses `./models/modelo_web/model.json` relative to the application page. Test with a local HTTP server to confirm it resolves.
-2. **Preprocessing consistency:** image, video and camera paths do not apply identical pixel normalization. The expected input scaling must be checked against the original training pipeline before changing it.
-3. **Model readiness (code fix applied, runtime unverified):** image, video and camera prediction actions now check whether the model has loaded and display an alert otherwise.
-4. **Video processing:** frame processing and playback event handling need runtime testing to verify behavior and resource cleanup.
-5. **Evaluation:** no independently verified accuracy, validation dataset, or reproducible performance benchmark is established by this recovery review.
+- Integration of a deep-learning model into a web application
+- Image and video input processing in JavaScript
+- Interactive user-interface development
+- Working with model predictions and browser APIs
 
-## Next steps / Próximos pasos
+## Project status
 
-- Confirm which historical revision is appropriate for restoration.
-- Run the web application locally with a server and inspect console errors.
-- Verify model loading, input preprocessing, and output labels.
-- Test image, video, and camera paths independently.
-- Add reproducible setup instructions and evidence of validated results.
+**Academic prototype — historical version recovered.** The source code and model files are available for review, but this snapshot has **not been fully tested or independently benchmarked**. The original training notebook and evaluation dataset are not available, so no accuracy percentage is claimed here. The application is not intended for real-world emergency or safety-critical use.
 
-## Context / Contexto
+The model is large (approximately 646 MB of weight files), and running the demo requires serving `AccidentesC5/` through a local HTTP server. The model's preprocessing and end-to-end behavior still need validation.
 
-This is a recovered historical snapshot, not a claim that the current branch is the final version of the original project. Do not use it for safety-critical accident detection or emergency response.
+---
 
-Este repositorio documenta una versión histórica recuperada; no se presenta como la versión definitiva del proyecto ni como un sistema apto para respuesta a emergencias.
+## Español
 
-## Local test / Prueba local
+Este proyecto académico explora la **detección de accidentes de tránsito mediante visión por computadora e inteligencia artificial**. Integra un modelo de TensorFlow/Keras exportado a TensorFlow.js con una interfaz web desarrollada en HTML, CSS y JavaScript.
 
-From the recovered branch, run a local HTTP server with `AccidentesC5` as the document root (for example, `cd AccidentesC5` followed by `python -m http.server 8000`). Open `http://localhost:8000/` in a browser, inspect the developer console, and confirm the model manifest and all weight shards load successfully. Camera access may require a secure context; `localhost` is normally treated as secure by modern browsers. The model is large, so initial loading may take time. Do not interpret the UI's per-prediction confidence percentage as independently measured accuracy.
+La aplicación contempla el análisis de **imágenes, videos y capturas de cámara**, mostrando la clasificación estimada entre *con choque* y *sin choque*. También incluye una interfaz de selección de ubicación en la Ciudad de México.
 
-Desde la rama recuperada, inicia un servidor HTTP local desde `AccidentesC5`, abre `http://localhost:8000/` y revisa la consola del navegador. Verifica que se carguen el manifiesto y los pesos. El porcentaje mostrado por predicción representa una puntuación del modelo, no una precisión global validada.
+**Habilidades aplicadas:** integración de modelos de aprendizaje profundo, procesamiento de imágenes, desarrollo frontend y programación en JavaScript.
+
+**Estado:** prototipo académico recuperado de una versión histórica. No se ha completado su validación funcional ni se dispone del cuaderno de entrenamiento o de métricas verificables de evaluación. No es un sistema operativo de atención a emergencias.
