@@ -3,7 +3,7 @@ let modelo;
 // Cargar modelo al iniciar
 async function cargarModelo() {
   try {
-    modelo = await tf.loadLayersModel('/models/modelo_web/model.json');
+    modelo = await tf.loadLayersModel('./models/modelo_web/model.json');
     console.log("✅ Modelo cargado correctamente");
   } catch (error) {
     console.error("❌ Error al cargar el modelo:", error);
@@ -61,6 +61,10 @@ function cargarImagen(event) {
 }
 
 async function predecirImagen() {
+  if (!modelo) {
+    alert('El modelo aún no está disponible. Revisa la consola y vuelve a intentarlo.');
+    return;
+  }
   const etiquetas = ["🚫 Sin choque", "💥 Con choque"];
   const imgElement = document.getElementById('imagenVista');
 
@@ -95,6 +99,10 @@ function mostrarBotonVideo() {
 }
 
 async function predecirVideo() {
+  if (!modelo) {
+    alert('El modelo aún no está disponible. Revisa la consola y vuelve a intentarlo.');
+    return;
+  }
   const etiquetas = ["🚫 Sin choque", "💥 Con choque"];
   const video = document.getElementById('videoVista');
   const archivo = document.getElementById('inputVideo').files[0];
@@ -155,6 +163,10 @@ function activarCamara() {
 }
 
 async function analizarCamara() {
+  if (!modelo) {
+    alert('El modelo aún no está disponible. Revisa la consola y vuelve a intentarlo.');
+    return;
+  }
   const etiquetas = ["🚫 Sin choque", "💥 Con choque"];
   const video = document.getElementById('camaraVista');
   const canvas = document.createElement('canvas');
