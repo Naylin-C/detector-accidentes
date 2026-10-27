@@ -87,7 +87,7 @@ async function predecirImagen() {
     <div style="font-size: 18px; color: ${clase === 1 ? '#ff4d4d' : '#4caf50'};">
       <strong>${etiqueta}</strong>
     </div>
-    <div>🧠 Precisión: <strong>${porcentaje}%</strong><br>⏱ Tiempo: ${tiempo} ms</div>
+    <div>🧠 Confianza del modelo: <strong>${porcentaje}%</strong><br>⏱ Tiempo: ${tiempo} ms</div>
   `;
 }
 
@@ -133,7 +133,7 @@ async function predecirVideo() {
       <div style="font-size: 18px; color: ${clase === 1 ? '#ff4d4d' : '#4caf50'};">
         <strong>${etiqueta}</strong>
       </div>
-      <div>🧠 Precisión: <strong>${porcentaje}%</strong></div>
+      <div>🧠 Confianza del modelo: <strong>${porcentaje}%</strong></div>
     `;
 
     setTimeout(analizarFrame, 1000); // cada segundo
@@ -193,7 +193,7 @@ async function analizarCamara() {
     <div style="font-size: 18px; color: ${clase === 1 ? '#ff4d4d' : '#4caf50'};">
       <strong>${etiqueta}</strong>
     </div>
-    <div>🧠 Precisión: <strong>${porcentaje}%</strong><br>⏱ Tiempo: ${tiempo} ms</div>
+    <div>🧠 Confianza del modelo: <strong>${porcentaje}%</strong><br>⏱ Tiempo: ${tiempo} ms</div>
   `;
 }
 
